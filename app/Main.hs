@@ -51,13 +51,23 @@ laba1_5 (x:xs)
                 |xs == [] = x
                 |otherwise = x*(laba1_5  xs) 
 
+{--
+задание 1.
+написать функцию, которая читает файл и возвращает строку из всех слов файла.
+Потом урезать каждое слово до 80% от начального.
+Нужные объяснения:
+    - do нотация
+    - функция readFile
+    - let в do
+    - return в do
+--}
+
 
 laba2_1:: IO String
 
 laba2_1 = do
     handle <- readFile "./test.txt"
     let ln = words  handle
-        (xa:ya:za:xsa) = ln
         anoWord (x:xs) l 
             | l > 1 = x:anoWord xs (l-1)
             | otherwise = [x]
@@ -65,9 +75,6 @@ laba2_1 = do
         res (x:xs) 
             |xs == [] = [eith x]
             |otherwise = (eith x):res xs 
-    print ln
-    print (round ((fromIntegral (length ya)) * 0.8))
-    print ((joinList . res $ ln) " ")
     return ((joinList . res $ ln) " ")
 
 --eith i = anoWord i . round . (*) 0.8 . fromIntegral . length $ i 
@@ -75,6 +82,13 @@ joinList::[String] -> String -> String
 joinList (x:xs) s 
     |xs == [] = x
     |otherwise = x++s++(joinList xs s)
+
+{--
+задание 2.
+написать тип содержащий время и число. Число это сложность задачи. 
+Нужно написать функцию, которая изменяет сложность в зависимости от времени.
+рассказать про классы типов.
+--}
 
 data Times = Utro | Den' | Vecher | Noch' deriving (Show,Read)
     
@@ -96,6 +110,14 @@ laba2_2 x y = do
     print x
     print y--}
     
+{--
+задание 3.
+написать 2 функции.
+первая получает на вход список и значение, на выходе список, в котором исключены значения 2 аргумента (в плане вместо них Nothing, а остальные с Just).
+2 функция должна реализовывать map для [Maybe a]
+рассказать про Maybe.
+--}
+
 laba2_3:: (Eq a,Num a)=>[a] -> a -> [Maybe a]
 laba2_3 (x:xs) d
     | xs == [] = if x == d 
