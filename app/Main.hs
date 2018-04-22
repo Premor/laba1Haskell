@@ -12,24 +12,11 @@ main = do
     x <- getLine
     print $ anotherFunc <$> someFunc x
 --}
-laba1_3 :: Test -> String
-data Test = Gavno Int
-          | Jopa Int
-          | Chlen Int
-          deriving (Eq,Show,Ord)
 
-          (*) 3  .  product $ [1,2,3]
 
-data Data = Q | W | E | R 
+--(*) 3  .  product $ [1,2,3]
 
-instance Show Data where
-    show Q = "QA"
 
-    show W = "WA"
-
-    show E = "EA"
-
-    show R = "RA"
 
 {--laba1_4 :: Data -> String
 
@@ -44,13 +31,6 @@ laba1_4 R = "RA"
 
 
 
-laba1_3 (Gavno 1) = "Gavno"
-
-laba1_3 (Jopa  2) = "Jopa"
-
-laba1_3 (Chlen  3) = "Gavno"
-
-laba1_3 (Gavno x) = "SYKA"
 
 
 maxi :: (Ord a) => [a] -> a  
@@ -70,3 +50,28 @@ laba1_5 [] = 0
 laba1_5 (x:xs) 
                 |xs == [] = x
                 |otherwise = x*(laba1_5  xs) 
+
+
+laba2_1:: IO String
+
+laba2_1 = do
+    handle <- readFile "./test.txt"
+    let ln = words  handle
+        (xa:ya:za:xsa) = ln
+        anoWord (x:xs) l 
+            | l > 1 = x:anoWord xs (l-1)
+            | otherwise = [x]
+        eith i = anoWord i (round ((fromIntegral (length i)) * 0.8))
+        res (x:xs) 
+            |xs == [] = [eith x]
+            |otherwise = (eith x):res xs 
+    print ln
+    print (round ((fromIntegral (length ya)) * 0.8))
+    print ((joinList . res $ ln) " ")
+    return ((joinList . res $ ln) " ")
+
+--eith i = anoWord i . round . (*) 0.8 . fromIntegral . length $ i 
+joinList::[String] -> String -> String
+joinList (x:xs) s 
+    |xs == [] = x
+    |otherwise = x++s++(joinList xs s)
