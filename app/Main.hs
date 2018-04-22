@@ -96,5 +96,16 @@ laba2_2 x y = do
     print x
     print y--}
     
-laba2_2_1::Int -> Int
-laba2_2_1 x = x + 2
+laba2_3:: (Eq a,Num a)=>[a] -> a -> [Maybe a]
+laba2_3 (x:xs) d
+    | xs == [] = if x == d 
+        then [Nothing]
+        else [Just x]
+    | x == d = Nothing:laba2_3 xs d
+    | otherwise = Just x:laba2_3 xs d
+
+myMap:: (a->a)->[Maybe a]->[Maybe a]
+myMap f (Just a:[]) = [Just (f a)]
+myMap f (Nothing:[]) = [Nothing]
+myMap f (Nothing:xs) = Nothing:myMap f xs
+myMap f (Just a:xs) = Just (f a):myMap f xs
