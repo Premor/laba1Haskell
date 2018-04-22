@@ -75,3 +75,26 @@ joinList::[String] -> String -> String
 joinList (x:xs) s 
     |xs == [] = x
     |otherwise = x++s++(joinList xs s)
+
+data Times = Utro | Den' | Vecher | Noch' deriving (Show,Read)
+    
+class Test m where
+    test::Num a =>m a->a
+
+data Dela a = Dela Times a deriving (Show,Read)
+
+instance Test Dela where
+    test (Dela Utro a) = a + 2
+    test (Dela Den' a) = a + 3
+    test (Dela Vecher a) = a + 4
+    test (Dela Noch' a) = a + 5
+
+
+
+{--laba2_2::Times -> Dela -> IO ()
+laba2_2 x y = do
+    print x
+    print y--}
+    
+laba2_2_1::Int -> Int
+laba2_2_1 x = x + 2
